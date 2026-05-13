@@ -268,6 +268,3 @@ This project was built to bridge my background in Azure infrastructure administr
 
 ---
 
-## Licence
-
-MIT — see [LICENSE](LICENSE) for details.
