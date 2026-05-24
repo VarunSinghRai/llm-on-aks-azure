@@ -13,7 +13,5 @@ resource "azurerm_subnet" "aksubnet" {
   resource_group_name = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.aksvnet.name
   address_prefixes    = each.value.address_prefixes
-
-  tags = var.tags
 }
 
