@@ -4,16 +4,50 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    include: [terraform/**]
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+- group: terraform-prod
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: Plan
+    jobs:
+      - job: TerraformPlan
+        steps:
+          - task: TerraformInstaller@0
+            inputs:
+              terraformVersion: '1.7.5'
+
+          - task: TerraformTaskV4@4
+            inputs:
+              command: 'init'
+              provider: azurerm
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              backendAzureRmResourceGroupName: $(TF_STATE_RG)
+              backendAzureRmStorageAccountName: $(TF_STATE_SA)
+              backendAzureRmContainerName: $(TF_STATE_CONTAINER_NAME)
+              backendAzureRmKey: "dev.terraform.tfstate"
+
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: azurerm
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              commandOptions: '-out=tfplan -input=false'
+              environmentServiceNameAzureRM: "terraform-storage-backend"
+              
+          - publish: terraform/tfplan
+            artifact: tfplan
+            
+
+
+      
+
+
