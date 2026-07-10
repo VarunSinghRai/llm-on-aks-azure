@@ -34,6 +34,7 @@ stages:
               backendAzureRmStorageAccountName: $(TF_STATE_SA)
               backendAzureRmContainerName: $(TF_STATE_CONTAINER_NAME)
               backendAzureRmKey: "dev.terraform.tfstate"
+              backendServiceArm: "terraform-storage-backend"
 
           - task: TerraformTaskV4@4
             inputs:
@@ -41,7 +42,7 @@ stages:
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               commandOptions: '-out=tfplan -input=false'
-              environmentServiceNameAzureRM: "terraform-storage-backend"
+              #environmentServiceNameAzureRM: "terraform-storage-backend"
               
           - publish: terraform/tfplan
             artifact: tfplan
