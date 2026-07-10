@@ -42,7 +42,7 @@ stages:
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               commandOptions: '-out=tfplan -input=false'
-              #environmentServiceNameAzureRM: "terraform-storage-backend"
+              environmentServiceNameAzureRM: "terraform-storage-backend"
               
           - publish: terraform/tfplan
             artifact: tfplan
