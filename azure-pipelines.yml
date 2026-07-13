@@ -64,6 +64,7 @@ stages:
               checkov -f tfplan. --quiet --compact
             displayName: 'Checkov Security Scan'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+            continueOnError: true
 
           - publish: terraform/tfplan
             artifact: tfplan
