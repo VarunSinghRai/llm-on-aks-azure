@@ -36,8 +36,8 @@ subnets = {
 # =============================================================================
 # Azure Container Registry
 # =============================================================================
-acr_name = "acrllmaksprod"   # must be globally unique, alphanumeric only
-acr_sku  = "Premium"          # enables geo-replication and private link
+acr_name = "acrllmaksprod" # must be globally unique, alphanumeric only
+acr_sku  = "Premium"       # enables geo-replication and private link
 
 # =============================================================================
 # AKS Cluster
@@ -45,16 +45,16 @@ acr_sku  = "Premium"          # enables geo-replication and private link
 cluster_name = "aks-llm-prod"
 dns_prefix   = "llm-prod"
 node_count   = 3
-vm_size      = "Standard_NC6s_v3"   # GPU nodes for LLM inference workloads
+vm_size      = "Standard_NC6s_v3" # GPU nodes for LLM inference workloads
 
 # =============================================================================
 # Key Vault
 # =============================================================================
-keyvault_name            = "kv-llm-aks-prod"   # 3-24 chars, globally unique
-tenant_id                = "00000000-0000-0000-0000-000000000000"   # replace with: az account show --query tenantId -o tsv
+keyvault_name            = "kv-llm-aks-prod"                      # 3-24 chars, globally unique
+tenant_id                = "00000000-0000-0000-0000-000000000000" # replace with: az account show --query tenantId -o tsv
 keyvault_sku             = "premium"
 soft_delete_enabled      = true
-purge_protection_enabled = true   # prevents accidental permanent deletion in prod
+purge_protection_enabled = true # prevents accidental permanent deletion in prod
 
 # =============================================================================
 # Monitoring (Log Analytics Workspace)

@@ -3,5 +3,5 @@ resource "azurerm_resource_group" "akrg" {
   location = var.location
 
   tags = var.tags
-  
+
 }

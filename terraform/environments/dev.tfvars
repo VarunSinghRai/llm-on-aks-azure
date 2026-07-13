@@ -36,7 +36,7 @@ subnets = {
 # =============================================================================
 # Azure Container Registry
 # =============================================================================
-acr_name = "acrllmaksdev"   # must be globally unique, alphanumeric only
+acr_name = "acrllmaksdev" # must be globally unique, alphanumeric only
 acr_sku  = "Basic"
 
 # =============================================================================
@@ -45,16 +45,16 @@ acr_sku  = "Basic"
 cluster_name = "aks-llm-dev"
 dns_prefix   = "llm-dev"
 node_count   = 2
-vm_size      = "Standard_D4s_v3"   # swap for Standard_NC6s_v3 in prod (GPU)
+vm_size      = "Standard_D4s_v3" # swap for Standard_NC6s_v3 in prod (GPU)
 
 # =============================================================================
 # Key Vault
 # =============================================================================
-keyvault_name            = "kv-llm-aks-dev"   # 3-24 chars, globally unique
+keyvault_name            = "kv-llm-aks-dev" # 3-24 chars, globally unique
 tenant_id                = "66f1ce9d-63de-48db-XXX-XXXXXXXXX"
 keyvault_sku             = "standard"
 soft_delete_enabled      = true
-purge_protection_enabled = false   # false in dev so the vault can be destroyed cleanly
+purge_protection_enabled = false # false in dev so the vault can be destroyed cleanly
 
 # =============================================================================
 # Monitoring (Log Analytics Workspace)
