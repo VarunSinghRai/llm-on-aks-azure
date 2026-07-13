@@ -47,7 +47,24 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               commandOptions: '-var-file=environments/dev.tfvars -out=tfplan -input=false'
               environmentServiceNameAzureRM: "terraform-storage-backend"
-              
+
+          - script: | 
+              set -euo pipefail
+              pip install --quiet checkov
+              # convert the binary plan to JSON so Checkov can read it
+              terraform show -json tfplan > tfplan.json
+            displayName: 'Prepare Checkov Scan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
+          - script: |
+              set -euo pipefail
+              # scan 1: raw source (catches issues incl. in modules)
+              checkov -d . --quiet --compact
+              # scan 2: the resolved plan (what will ACTUALLY be created)
+              checkov -f tfplan. --quiet --compact
+            displayName: 'Checkov Security Scan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
           - publish: terraform/tfplan
             artifact: tfplan
             
