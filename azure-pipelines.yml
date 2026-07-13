@@ -45,7 +45,7 @@ stages:
               provider: azurerm
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-              commandOptions: '-var-file=environments/prod.tfvars -out=tfplan -input=false'
+              commandOptions: '-var-file=environments/dev.tfvars -out=tfplan -input=false'
               environmentServiceNameAzureRM: "terraform-storage-backend"
               
           - publish: terraform/tfplan
