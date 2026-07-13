@@ -25,6 +25,10 @@ stages:
             inputs:
               terraformVersion: '1.7.5'
 
+          - script: terraform fmt -check -recursive
+            displayName: 'Terraform Format Check'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
           - task: TerraformTaskV4@4
             inputs:
               command: 'init'
@@ -41,7 +45,7 @@ stages:
               provider: azurerm
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-              commandOptions: '-out=tfplan -input=false'
+              commandOptions: '-var-file=prod/prod.tfvars -out=tfplan -input=false'
               environmentServiceNameAzureRM: "terraform-storage-backend"
               
           - publish: terraform/tfplan
